@@ -1,0 +1,82 @@
+ion-card-title {
+  margin-top: 20px; /* Ajusta el margen superior */
+  margin-right: 20px; /* Ajusta el margen derecho */
+  margin-bottom: 20px; /* Ajusta el margen inferior */
+  margin-left: 20px; /* Ajusta el margen izquierdo */
+  color: #ffffff;
+}
+
+.centrar-boton {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente, opcional si también quieres centrar verticalmente */
+  .ion-buttonSes {
+    --background: #e81717; /* Color de fondo del botón */
+    --color: #ffffff; /* Color del texto del botón */
+  }
+  .ion-buttonRe {
+    --background: #ffa039; /* Color de fondo del botón */
+    --color: #ffffff; /* Color del texto del botón */
+  }
+}
+
+
+/* Media query para pantallas más grandes (tablets, desktops) */
+@media (min-width: 768px) {
+  .custom-ion-card {
+    max-width: 400px; /* Ancho máximo para pantallas grandes */
+    margin: auto; /* Centra el card en la página */
+    margin-top: 50px;
+  }
+}
+.responsive-image {
+  width: 50%; /* Ajusta el tamaño según tus necesidades */
+  max-width: 200px; /* Tamaño máximo de la imagen */
+  height: auto; /* Mantiene la proporción de la imagen */
+  display: block;
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+.custom-ion-list {
+  background-color: #f0f0f0; /* Cambia el color de fondo según tus necesidades */
+  padding: 10px; /* Opcional: añade padding para un mejor diseño */
+  border-radius: 8px; /* Opcional: añade bordes redondeados */
+}
+:host {
+  --min-height: 44px;
+  --transition: background-color 200ms linear, opacity 200ms linear;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  --inner-border-width: 0px 0px 0.55px 0px;
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background-activated: var(--ion-text-color, #000);
+  --background-focused: var(--ion-text-color, #000);
+  --background-hover: currentColor;
+  --background-activated-opacity: .12;
+  --background-focused-opacity: .15;
+  --background-hover-opacity: .04;
+  --border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-250, var(--ion-background-color-step-250, #c8c7cc))));
+  --color: var(--ion-item-color, var(--ion-text-color, #000));
+  font-size: 1rem;
+}
+
+.custom-ion-item {
+  --background: #f0f0f0; /* Cambia el color de fondo según tus necesidades */
+  --color: #333; /* Cambia el color del texto según tus necesidades */
+  --border-color: #ccc; /* Cambia el color del borde según tus necesidades */
+  .button-solid {
+    --background: #ffa039; /* Cambia el color de fondo */
+    --color: #fff; /* Cambia el color del texto */
+    --border-color: #ffa039; /* Cambia el color del borde */
+  }
+  .button-solid2 {
+    --background: #e81717; /* Cambia el color de fondo */
+    --color: #fff; /* Cambia el color del texto */
+    --border-color: #e81717; /* Cambia el color del borde */
+  }
+}
+
+.centrar-boton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

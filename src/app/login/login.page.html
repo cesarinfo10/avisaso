@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <br />
+  <img alt="Silhouette of mountains" src="../assets/images/logo.png" class="responsive-image" />
+  <ion-card class="custom-ion-card">
+    <ion-card-title>
+     Inicio de sesión
+    </ion-card-title>
+    <br/>
+    <ion-card-content>
+      <ion-list class="custom-ion-list">
+        <ion-item class="custom-ion-item">
+          <ion-input type="text" [(ngModel)]="usuario.dni" label="DNI" labelPlacement="floating" placeholder="DNI" class="custom-ion-item"></ion-input>
+        </ion-item>
+
+        <ion-item class="custom-ion-item">
+          <ion-input type="password" [(ngModel)]="usuario.contrasena" label="Password" labelPlacement="floating" placeholder="Password" class="custom-ion-item"></ion-input>
+        </ion-item>
+        <br/>
+        <div class="centrar-boton">
+        <ion-button size="small" class="ion-buttonSes" (click)="iniciarSesion(usuario.dni, usuario.contrasena)">
+          <ion-icon name="log-in-outline"> </ion-icon>
+          Inicio de sesión
+        </ion-button>
+
+        <ion-button size="small" class="ion-buttonRe"  (click)="irRegistro()">
+          <ion-icon name="person-add-outline"> </ion-icon>
+          Registro de usuario
+        </ion-button>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
