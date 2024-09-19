@@ -6,13 +6,8 @@ ion-card-title {
   color: #ffffff;
 }
 
-.centrar-boton {
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente, opcional si también quieres centrar verticalmente */
-}
-.centrar-boton ion-button {
-  --background: #e81717; /* Color de fondo del botón */
+ion-button {
+  --background: #ffa039; /* Color de fondo del botón */
   --color: #ffffff; /* Color del texto del botón */
 }
 
@@ -76,19 +71,4 @@ ion-card-title {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-}
-
-.button-solid-map {
-  --background: #ffa039; /* Color de fondo */
-  --color: #fff; /* Color del texto */
-  --border-radius: 4px; /* Radio del borde */
-  --padding-start: 16px; /* Padding inicial */
-  --padding-end: 16px; /* Padding final */
-  --font-size: 16px; /* Tamaño de la fuente */
-  --font-weight: bold; /* Peso de la fuente */
-  height: 30px !important; /* Altura del botón */
-  line-height: 30px !important; /* Alineación vertical del texto */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

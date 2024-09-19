@@ -23,11 +23,14 @@
     "@angular/router": "^18.0.0",
     "@ionic-native/camera": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
+    "@ionic-native/geolocation": "^5.36.0",
     "@ionic/angular": "^8.0.0",
     "@ionic/cordova-builders": "^11.0.0",
+    "@mapbox/mapbox-sdk": "^0.16.1",
     "avisaso": "file:",
     "ionicons": "^7.0.0",
-    "rxjs": "~7.8.0",
+    "mapbox-gl": "^3.6.0",
+    "rxjs": "^7.8.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
@@ -43,11 +46,13 @@
     "@angular/language-service": "^18.0.0",
     "@ionic/angular-toolkit": "^11.0.1",
     "@types/jasmine": "~5.1.0",
+    "@types/mapbox__mapbox-sdk": "^0.15.1",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "cordova-android": "^13.0.0",
     "cordova-plugin-camera": "^7.0.0",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
@@ -73,7 +78,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-camera": {}
+      "cordova-plugin-camera": {},
+      "cordova-plugin-geolocation": {}
     },
     "platforms": [
       "android"

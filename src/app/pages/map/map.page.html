@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mapa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <!--  <ion-item>
+    <ion-label position="stacked">Posición Actual:</ion-label>
+    <ion-spinner name="lines-small" *ngIf="cargandoGeo"></ion-spinner>
+    <ion-toggle slot="end" [(ngModel)]="post.posicion" (ionChange)="getGeo()"></ion-toggle>
+  </ion-item>-->
+
+  <!--MAPA-->
+  <ion-item class="custom-ion-item">
+    <ion-label position="floating">Buscar Dirección</ion-label>
+    <ion-input #direccionInput (ionInput)="obtenerSugerencias(direccionInput.value)"></ion-input>
+  </ion-item>
+  <ion-list *ngIf="sugerencias.length > 0">
+    <ion-item *ngFor="let sugerencia of sugerencias" (click)="seleccionarSugerencia(sugerencia)">
+      {{ sugerencia.place_name }}
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" class="centrar-boton" (click)="confirmarDireccion()" [disabled]="!direccionSeleccionada">Confirmar Dirección</ion-button>
+  <div id="map-container">
+    <div class="map" style="width: 100%; height: 500px;" id="mapComb" tabindex="0"></div>
+  </div>
+  <br/>
+
+</ion-content>
