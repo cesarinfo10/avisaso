@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'busqueda',
     loadChildren: () => import('./pages/busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+  },
+  {
+    path: 'licitar',
+    loadChildren: () => import('./pages/licitar/licitar.module').then( m => m.LicitarPageModule)
   }
 ];
 

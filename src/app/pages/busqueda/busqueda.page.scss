@@ -30,6 +30,11 @@
     --border-color: #e81717; /* Cambia el color del borde */
   }
 }
+.button-solid3 {
+  --background: #ffa039; /* Cambia el color de fondo */
+  --color: #fff; /* Cambia el color del texto */
+  --border-color: #ffa039; /* Cambia el color del borde */
+}
 /* Asegúrate de que el contenedor del mapa tenga una altura del 100% */
 #map-container, #mapComb {
   height: 100%;
@@ -42,3 +47,4 @@ html, body, ion-app, ion-content {
   margin: 0;
   padding: 0;
 }
+

@@ -4,6 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 import MapboxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
 import { UserService } from '../../services/user/user.service';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-busqueda',
@@ -23,7 +24,9 @@ export class BusquedaPage implements OnInit {
     posicion: false
   };
 
-  constructor(private servicio: UserService, private geolocation: Geolocation) {
+  constructor(private servicio: UserService, private geolocation: Geolocation,
+    private popoverController: PopoverController
+  ) {
     (mapboxgl as any).accessToken = environment.MAPBOX_API_KEY;
     this.geocodingClient = MapboxGeocoding({ accessToken: environment.MAPBOX_API_KEY });
   }
@@ -110,4 +113,10 @@ export class BusquedaPage implements OnInit {
       this.mapa(coordenadas);
     });
   }
+    // Método para el botón Licitar
+    licitar() {
+      console.log('Botón Licitar presionado');
+      // Aquí puedes agregar la lógica que necesites para el botón Licitar
+    }
+  // Método para presentar el popover de ayuda
 }
