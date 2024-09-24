@@ -57,3 +57,18 @@ ion-menu-button {
   display: block;
   margin: 0 auto; /* Centra la imagen horizontalmente */
 }
+.custom-ion-item {
+  --background: #e81717; /* Cambia el color de fondo según tus necesidades */
+  --color: #333; /* Cambia el color del texto según tus necesidades */
+  --border-color: #e81717; /* Cambia el color del borde según tus necesidades */
+  .button-solid {
+    --background: #ffa039; /* Cambia el color de fondo */
+    --color: #fff; /* Cambia el color del texto */
+    --border-color: #ffa039; /* Cambia el color del borde */
+    height: 40px; /* Ajusta la altura según tus necesidades */
+  }
+}
+.text-center {
+  text-align: justify;
+  color: #fff;
+}

@@ -1,0 +1,44 @@
+:host {
+  --min-height: 44px;
+  --transition: background-color 200ms linear, opacity 200ms linear;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  --inner-border-width: 0px 0px 0.55px 0px;
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background-activated: var(--ion-text-color, #000);
+  --background-focused: var(--ion-text-color, #000);
+  --background-hover: currentColor;
+  --background-activated-opacity: .12;
+  --background-focused-opacity: .15;
+  --background-hover-opacity: .04;
+  --border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-250, var(--ion-background-color-step-250, #c8c7cc))));
+  --color: var(--ion-item-color, var(--ion-text-color, #000));
+  font-size: 1rem;
+}
+.custom-ion-item {
+  --background: #f0f0f0; /* Cambia el color de fondo según tus necesidades */
+  --color: #333; /* Cambia el color del texto según tus necesidades */
+  --border-color: #ccc; /* Cambia el color del borde según tus necesidades */
+  .button-solid {
+    --background: #ffa039; /* Cambia el color de fondo */
+    --color: #fff; /* Cambia el color del texto */
+    --border-color: #ffa039; /* Cambia el color del borde */
+  }
+  .button-solid2 {
+    --background: #e81717; /* Cambia el color de fondo */
+    --color: #fff; /* Cambia el color del texto */
+    --border-color: #e81717; /* Cambia el color del borde */
+  }
+}
+/* Asegúrate de que el contenedor del mapa tenga una altura del 100% */
+#map-container, #mapComb {
+  height: 100%;
+  width: 100%;
+}
+
+/* Asegúrate de que el cuerpo y el contenedor principal tengan una altura del 100% */
+html, body, ion-app, ion-content {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

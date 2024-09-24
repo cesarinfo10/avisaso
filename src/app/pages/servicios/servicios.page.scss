@@ -71,7 +71,11 @@ ion-card-title {
     --border-color: #e81717; /* Cambia el color del borde */
   }
 }
-
+.button-solid3 {
+  --background: #ffa039; /* Cambia el color de fondo */
+  --color: #fff; /* Cambia el color del texto */
+  --border-color: #ffa039; /* Cambia el color del borde */
+}
 .centrar-boton {
   display: flex;
   justify-content: center;
@@ -111,4 +115,25 @@ ion-card-title {
   height: auto; /* Mantiene la proporción de la imagen */
   display: block;
   margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+.centered-grid {
+  ion-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.centered-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.green {
+  color: green;
+}
+
+.orange {
+  color: orange;
 }

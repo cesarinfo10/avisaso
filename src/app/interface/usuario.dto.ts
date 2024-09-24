@@ -8,7 +8,9 @@ export interface UsuarioDto {
   celular?: string;
   telefono?: string;
   direccion?: string;
-  foto_perfil?: File | null;
+  latitud?: string;
+  longitud?: string;
+  foto_perfil?: string;
   usuario?: string;
   password?: string;
   rep_password?: string;

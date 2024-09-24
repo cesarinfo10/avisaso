@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Busqueda De Servicios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item class="custom-ion-item">
+    <ion-input type="text" (ionChange)="consultarServivesUser()" label="Buscar Servicio" labelPlacement="floating" placeholder="ingrese busqueda" [(ngModel)]="nomServicio"></ion-input>
+  </ion-item>
+
+  <div id="map-container">
+    <div class="map" id="mapComb" tabindex="0"></div>
+  </div>
+</ion-content>

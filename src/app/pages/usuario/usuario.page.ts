@@ -4,6 +4,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { NavController, AlertController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
+
 
 const apiUrl = environment.apiUrl;
 @Component({
@@ -17,8 +19,9 @@ export class UsuarioPage implements OnInit {
   correo: string = '';
   celular: string = '';
   direccion: string = '';
-  latitud: number | null = null;
-  longitud: number | null = null;
+  latitud:  string = '';
+  longitud:  string = '';
+  dni: string = '';
   foto_perfil: string = '';
   usuario: string = '';
   id_notificaciones: string = '';
@@ -26,10 +29,20 @@ export class UsuarioPage implements OnInit {
   estado: string = '';
   telefono: string = '';
   isMobile: boolean = false;
+  presentacion: string = '';
+
+  public image: string= apiUrl+'/assets/perfil.png';
 
 
-  constructor(private platform: Platform, private camera: Camera, private navCtrl: NavController,
-    private alertCtrl: AlertController, private route: ActivatedRoute, private router: Router) { }
+  constructor(private servicio: UserService,
+              private platform: Platform,
+              private camera: Camera,
+              private navCtrl: NavController,
+              private alertCtrl: AlertController,
+              private route: ActivatedRoute,
+              private router: Router) {
+                this.consultarUser();
+               }
 
   ngOnInit() {
     this.isMobile = this.platform.is('mobile') || this.platform.is('android') || this.platform.is('ios');
@@ -38,9 +51,10 @@ export class UsuarioPage implements OnInit {
       this.telefono = params['telefono'] || '';
       this.correo = params['correo'] || '';
       this.tipo_usuario = params['tipo_usuario'] || '';
-      this.latitud = params['latitud'] ? parseFloat(params['latitud']) : null;
-      this.longitud = params['longitud'] ? parseFloat(params['longitud']) : null;
-      console.log('Datos recibidos:', this.direccion, this.telefono, this.correo, this.tipo_usuario, this.latitud, this.longitud);
+      this.latitud = params['latitud']  || '';
+      this.longitud = params['longitud']  || '';
+      this.presentacion = params['presentacion'] || '';
+      console.log('Datos recibidos:', this.direccion, this.telefono, this.correo, this.tipo_usuario, this.latitud, this.longitud, this.presentacion);
     });
   }
   /*=============================================
@@ -79,6 +93,7 @@ export class UsuarioPage implements OnInit {
     this.camera.getPicture(options)
       .then(imageData => {
         this.foto_perfil = `data:image/jpeg;base64,${imageData}`;
+        this.image = `data:image/jpeg;base64,${imageData}`;
         console.log(this.foto_perfil);
       })
       .catch(error => {
@@ -92,6 +107,7 @@ export class UsuarioPage implements OnInit {
       reader.onload = (e: any) => {
         const base64Image = e.target.result;
         this.foto_perfil = base64Image;
+        this.image = base64Image;
         console.log(base64Image);
       };
       reader.readAsDataURL(file);
@@ -103,20 +119,51 @@ export class UsuarioPage implements OnInit {
       queryParams: {
         telefono: this.telefono,
         correo: this.correo,
-        tipo_usuario: this.tipo_usuario
+        tipo_usuario: this.tipo_usuario,
+        presentacion: this.presentacion
       }
     });
   }
-  /*guardarImageReporte() {
-    this.servicio.addImageReporte(
-      this.idReporte,
-      this.urlImage,
-      this.image,
-      this.idUsuario
-    )
+  /*=============================================
+	UPDATE USUARIO POS SESIÓN
+	=============================================*/
+  guardarUsuario() {
+    const usuarioDto = {
+          tipo_usuario: this.tipo_usuario,
+          correo: this.correo,
+          celular: this.celular,
+          telefono: this.telefono,
+          direccion: this.direccion,
+          latitud: this.latitud,
+          longitud: this.longitud,
+          foto_perfil: this.foto_perfil,
+          usuario: this.usuario,
+          presentacion:this.presentacion,
+          dni: localStorage.getItem('dni') || undefined
+        };
+
+    this.servicio.addUser(usuarioDto)
       .then(
         async data => {
           console.log(data);
+          if (data !== 1) {
+            const alert = await this.alertCtrl.create({
+              header: 'Registro de usuario',
+              message: 'Error al registrar usuario',
+              buttons: ['OK']
+            });
+            await alert.present();
+            return;
+          } else{
+            const alert = await this.alertCtrl.create({
+              header: 'Registro de usuario',
+              message: 'Usuario registrado con éxito',
+              buttons: ['OK']
+            });
+            await alert.present();
+            this.limpiarCampos();
+
+          }
         }
       )
       .catch(
@@ -125,5 +172,43 @@ export class UsuarioPage implements OnInit {
         }
       );
 
-  }*/
+  }
+
+  limpiarCampos() {
+    this.tipo_usuario = '';
+    this.correo = '';
+    this.celular = '';
+    this.telefono = '';
+    this.direccion = '';
+    this.latitud = '';
+    this.longitud = '';
+    this.foto_perfil = '';
+    this.usuario = '';
+    this.image = apiUrl+'/assets/perfil.png';;
+    this.presentacion = '';
+    this.navCtrl.navigateRoot('/home');
+  }
+
+  async consultarUser() {
+
+    const dni = localStorage.getItem('dni');
+     if (dni) {
+       this.servicio.selectOneUserPos(dni).subscribe(async data => {
+        // console.log(data["dni"]);
+       //  this.users = [data];
+       this.tipo_usuario = data["tipo_usuario"] || '';
+       this.correo = data["correo"] || '';
+       this.celular = data["celular"] || '';
+       this.telefono = data["telefono"] || '';
+       this.direccion = data["direccion"] || '';
+       this.latitud = data["latitud"] || '';
+       this.longitud = data["longitud"] || '';
+       this.foto_perfil = data["foto_perfil"] || '';
+       this.usuario = data["usuario"] || '';
+       this.image = data["foto_perfil"];
+      this.presentacion = data["carta_presentacion"] || '';
+
+       });
+     }
+   }
 }

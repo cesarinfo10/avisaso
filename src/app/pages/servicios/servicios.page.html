@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Servicios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-title>
+     Agregar servicios
+    </ion-card-title>
+    <ion-card-content>
+      <ion-list class="custom-ion-list">
+    <ion-item class="custom-ion-item">
+      <ion-input type="text" label="Nombre del Servicio" labelPlacement="floating" [(ngModel)]="nomServicio" name="nomServicio"  placeholder="Ejemplo: Abogado, Mecánico, Carpientero etc."></ion-input>
+    </ion-item>
+
+    <ion-item class="custom-ion-item">
+      <ion-textarea
+      label="Descripción"
+      labelPlacement="floating"
+      placeholder="Ejemplo: Descripción corta de tu servicio"
+      [(ngModel)]="descripcion"
+      name="descripcion"
+      autoGrow="true"
+      maxlength="500"
+    ></ion-textarea>
+    </ion-item>
+
+    <ion-item class="custom-ion-item">
+      <ion-label>Estado</ion-label>
+      <ion-select [(ngModel)]="estado" name="estado" interface="popover">
+        <ion-select-option value="1" selected>Activo</ion-select-option>
+        <ion-select-option value="2">Inactivo</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="custom-ion-item">
+      <ion-button class="button-solid2" style="width:100%;" expand="full" (click)="guardarServicio()">Guardar<ion-icon slot="end"  name="save-outline"></ion-icon></ion-button>
+    </ion-item>
+  </ion-list>
+  <br/>
+  <ion-list class="custom-ion-list">
+    <ion-item class="custom-ion-item">
+      <ion-grid class="centered-grid">
+        <ion-row>
+          <ion-col class="centered-col"><strong>Servicio</strong></ion-col>
+          <ion-col class="centered-col"><strong>Estado</strong></ion-col>
+          <ion-col class="centered-col"><strong>Editar</strong></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let servicio of servicios">
+          <ion-col class="centered-col">{{ servicio.nomServicio }}</ion-col>
+          <ion-icon
+          [name]="servicio.estado === '1' ? 'checkmark-circle-outline' : 'close-circle-outline'"
+          [class.green]="servicio.estado === '1'"
+          [class.orange]="servicio.estado !== '1'">
+        </ion-icon>
+          <ion-col class="centered-col">
+            <ion-button class="button-solid3" (click)="callOneService(servicio.id)"><ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-item>
+</ion-list>
+<input type="hidden" [(ngModel)]="id">
+</ion-card-content>
+</ion-card>
+</ion-content>
+

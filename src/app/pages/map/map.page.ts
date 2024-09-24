@@ -24,8 +24,10 @@ export class MapPage implements OnInit {
   tipo_usuario: string = '';
   direccionSeleccionada: boolean = false;
 
-  latitudSeleccionada: number | null = null;
-  longitudSeleccionada: number | null = null;
+  latitudSeleccionada: string = '';
+  longitudSeleccionada: string = '';
+
+  presentacion: string = '';
 
   post = {
     coords: null as string | null,
@@ -44,6 +46,8 @@ export class MapPage implements OnInit {
       this.telefono = params['telefono'] || '';
       this.correo = params['correo'] || '';
       this.tipo_usuario = params['tipo_usuario'] || '';
+      this.presentacion = params['presentacion'] || '';
+      console.log('Datos recibidos:', this.telefono, this.correo, this.tipo_usuario, this.presentacion);
     });
   }
 
@@ -140,7 +144,8 @@ export class MapPage implements OnInit {
         correo: this.correo,
         tipo_usuario: this.tipo_usuario,
         latitud: this.latitudSeleccionada,
-        longitud: this.longitudSeleccionada
+        longitud: this.longitudSeleccionada,
+        presentacion:this.presentacion
       }
     });
   }

@@ -41,11 +41,13 @@
 
         <ion-item class="custom-ion-item">
           <ion-label>Foto de perfil</ion-label>
+          <img [src]="image" *ngIf="image" class="rounded-image" alt="Descripción de la imagen">
+          <img *ngIf="!image" src="../../assets/images/perfil.png" class="responsive-image" />
         </ion-item>
 
         <ion-item class="custom-ion-item" *ngIf="isMobile">
-          <ion-button class="button-solid" style="width:50%;" (click)="camara()">Toma foto &nbsp;
-            <ion-icon name="camera"></ion-icon>
+          <ion-button class="button-solid" style="width:50%;" (click)="camara()">Toma foto
+            <ion-icon slot="end" name="camera"></ion-icon>
           </ion-button>
           <ion-button class="button-solid" style="width:50%;" expand="full" (click)="libreria()">Cargar Foto <ion-icon slot="end" name="cloud-upload"></ion-icon>
           </ion-button>
@@ -56,13 +58,23 @@
         <ion-item class="custom-ion-item">
           <ion-input type="text" label="Usuario" labelPlacement="floating" placeholder="Usuario" [(ngModel)]="usuario"></ion-input>
         </ion-item>
+        <ion-item class="custom-ion-item">
+          <ion-textarea
+          label="Presentación"
+          labelPlacement="floating"
+          placeholder="Presentación corta 250 caracteres."
+          [(ngModel)]="presentacion"
+          autoGrow="true"
+          maxlength="500"
+        ></ion-textarea>
+        </ion-item>
         <br/>
         <div class="centrar-boton">
-        <ion-button size="small">
-          <ion-icon name="save-outline" ></ion-icon>
+        <ion-button size="small" (click)="guardarUsuario()">
+          <ion-icon slot="end" name="save-outline"></ion-icon>
           Guardar
         </ion-button>
-        </div>
+         </div>
       </ion-list>
     </ion-card-content>
   </ion-card>

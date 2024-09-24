@@ -12,9 +12,10 @@ export class AppComponent {
     { title: 'Home', url: 'home', icon: 'home' },
     /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
     { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },*/
+    { title: 'Archived', url: '/folder/archived', icon: 'archive' },*/
     { title: 'Usuario', url: 'usuario', icon: 'person' },
+    { title: 'Servicios', url: 'servicios', icon: 'briefcase' },
+
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
