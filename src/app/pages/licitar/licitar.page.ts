@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user/user.service';
+
+interface Servicio {
+  nomServicio: string;
+}
 
 @Component({
   selector: 'app-licitar',
@@ -6,10 +11,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./licitar.page.scss'],
 })
 export class LicitarPage implements OnInit {
+  searchTerm: string = '';
+  suggestions: Servicio[] = [];
+  filteredSuggestions: Servicio[] = [];
 
-  constructor() { }
+  constructor(private servicioService: UserService) {}
+
 
   ngOnInit() {
+    this.getSuggestions();
   }
 
+  getSuggestions() {
+    this.servicioService.getSuggestions().subscribe((data: Servicio[]) => {
+      console.log(data);
+      this.suggestions = data;
+    });
+  }
+
+  filterSuggestions() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredSuggestions = this.suggestions.filter(suggestion =>
+      suggestion.nomServicio.toLowerCase().includes(term)
+    );
+  }
+
+  selectSuggestion(suggestion: Servicio) {
+    this.searchTerm = suggestion.nomServicio;
+    this.filteredSuggestions = [];
+  }
 }

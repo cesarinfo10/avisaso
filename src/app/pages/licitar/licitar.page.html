@@ -1,13 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>licitar</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Licitar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">licitar</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-title>
+     Licita tu trabajo
+    </ion-card-title>
+    <ion-card-content>
+      <ion-list class="custom-ion-list">
+        <ion-item class="custom-ion-item">
+          <ion-input type="text" label="Busca Servicio" labelPlacement="floating" placeholder="Busca Servicio" [(ngModel)]="searchTerm" (ionInput)="filterSuggestions()"></ion-input>
+        </ion-item>
+
+        <ion-list *ngIf="filteredSuggestions.length > 0">
+          <ion-item *ngFor="let suggestion of filteredSuggestions" (click)="selectSuggestion(suggestion)">
+            {{ suggestion.nomServicio }}
+          </ion-item>
+        </ion-list>
+        <ion-item class="custom-ion-item">
+          <ion-textarea
+          label="Descripción de tu trabajo"
+          labelPlacement="floating"
+          placeholder="Ej: Nesecito reparar. Estoy buscando construir."
+          autoGrow="true"
+          maxlength="500"
+        ></ion-textarea>
+        </ion-item>
+        <br/>
+        <div class="centrar-boton">
+        <ion-button size="small">
+          <ion-icon slot="end" name="send-outline"></ion-icon>
+          Enviar
+        </ion-button>
+         </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

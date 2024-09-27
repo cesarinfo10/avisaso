@@ -14,12 +14,12 @@
       <ion-button id="open-popoverMap" class="button-solid3"><ion-icon name="help-circle-outline"></ion-icon></ion-button>
       <ion-popover [keepContentsMounted]="true" trigger="open-popoverMap">
         <ng-template>
-          <ion-content class="ion-padding">Acá puedes buscar un prestador de servicios cerca de tu hogar, por ejemplo, Plomero, Mecánico, Abogado, etc.</ion-content>
+          <ion-content class="ion-padding">Acá podes buscar un prestador de servicios cerca de tu hogar, por ejemplo, Plomero, Mecánico, Abogado, etc.</ion-content>
         </ng-template>
       </ion-popover>
   </ion-item>
     <!-- Botón Licitar con Icono de Ayuda -->
-    <ion-button style="width: 80%;" class="button-solid3">
+    <ion-button style="width: 80%;" class="button-solid3" (click)="licitar();">
       <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
       Licitar
     </ion-button>
@@ -29,7 +29,7 @@
       <ng-template>
         <ion-content class="ion-padding">El licitar sirve para enviar un trabajo a varios prestadores de servicio
                                          de forma automática, luego, te enviaran el valor de su
-                                         trabajo a tu casilla de mensaje. Tu elegirás el más conveniente en precio y servicio.</ion-content>
+                                         trabajo a tu casilla de mensaje. Vos elegirás el más conveniente en precio y servicio.</ion-content>
       </ng-template>
     </ion-popover>
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { UsuarioDto } from '../../interface/usuario.dto';
+import { Servicio } from '../../interface/servicio.interface'; // Adjust the import path as necessary
 
 
 const apiUrl = environment.apiUrl;
@@ -85,5 +86,12 @@ export class UserService {
   // ==============================================================
   busquedaServiceUserOne(nomServicio: string): Observable<any> {
     return this.http.get(`${apiUrl}servicios/usuarios.php?nomServicio=${nomServicio}&busquedaUserSerOne`);
+  }
+
+  // ==============================================================
+  // LLAMAR SERVICIOS
+  // ==============================================================
+  getSuggestions(): Observable<Servicio[]> {
+    return this.http.get<Servicio[]>(`${apiUrl}servicios/usuarios.php?busquedaUserSer`);
   }
 }
