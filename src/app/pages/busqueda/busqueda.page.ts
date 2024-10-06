@@ -4,8 +4,11 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 import MapboxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
 import { UserService } from '../../services/user/user.service';
-import { PopoverController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+import { PopoverController, NavController, Platform } from '@ionic/angular';
+
+interface Servicio {
+  nomServicio: string;
+}
 
 @Component({
   selector: 'app-busqueda',
@@ -25,8 +28,14 @@ export class BusquedaPage implements OnInit {
     posicion: false
   };
 
-  constructor(private servicio: UserService, private geolocation: Geolocation,
-    private popoverController: PopoverController, private navCtrl: NavController,
+  suggestions: Servicio[] = [];
+  filteredSuggestions: Servicio[] = [];
+
+  constructor(private servicio: UserService,
+              private geolocation: Geolocation,
+              private popoverController: PopoverController,
+              private navCtrl: NavController,
+              private platform: Platform
   ) {
     (mapboxgl as any).accessToken = environment.MAPBOX_API_KEY;
     this.geocodingClient = MapboxGeocoding({ accessToken: environment.MAPBOX_API_KEY });
@@ -46,6 +55,14 @@ export class BusquedaPage implements OnInit {
       console.log('Error getting location', error);
       this.cargandoGeo = false;
     });
+
+    if (this.platform.is('ios') && this.platform.is('mobile')) {
+      const ionContent = document.querySelector('ion-content');
+      if (ionContent) {
+        ionContent.classList.add('ios-only');
+      }
+    }
+    this.getSuggestions();
   }
 
   mapa(coordenadas: { latitude: number, longitude: number, nombres: string, celular: string }[]) {
@@ -118,5 +135,22 @@ export class BusquedaPage implements OnInit {
     licitar() {
       this.navCtrl.navigateRoot('/licitar');
     }
-  // Método para presentar el popover de ayuda
+    getSuggestions() {
+      this.servicio.getSuggestions().subscribe((data: Servicio[]) => {
+        console.log(data);
+        this.suggestions = data;
+      });
+    }
+
+    filterSuggestions() {
+      const term = this.nomServicio.toLowerCase();
+      this.filteredSuggestions = this.suggestions.filter(suggestion =>
+        suggestion.nomServicio.toLowerCase().includes(term)
+      );
+    }
+
+    selectSuggestion(suggestion: Servicio) {
+      this.nomServicio = suggestion.nomServicio;
+      this.filteredSuggestions = [];
+    }
 }

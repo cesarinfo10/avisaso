@@ -28,6 +28,24 @@ export class UserService {
   // ==============================================================
   // REGISTRO DE USUARIOS
   // ==============================================================
+  newUser(datos: UsuarioDto) {
+    const body = JSON.stringify(datos);
+    return new Promise(
+      resolve => {
+        this.http.post(apiUrl + 'servicios/usuarios.php?newUser', body)
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            err => {
+              console.log(err);
+            });
+      }
+    );
+  }
+  // ==============================================================
+  // REGISTRO DE USUARIOS POS SESION
+  // ==============================================================
   addUser(datos: UsuarioDto) {
     const body = JSON.stringify(datos);
     return new Promise(

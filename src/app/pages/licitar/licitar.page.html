@@ -15,7 +15,7 @@
     <ion-card-content>
       <ion-list class="custom-ion-list">
         <ion-item class="custom-ion-item">
-          <ion-input type="text" label="Busca Servicio" labelPlacement="floating" placeholder="Busca Servicio" [(ngModel)]="searchTerm" (ionInput)="filterSuggestions()"></ion-input>
+          <ion-input type="text" label="Busca Servicio" labelPlacement="floating" placeholder="Busca Servicio" [(ngModel)]="nomServicio" (ionInput)="filterSuggestions()"></ion-input>
         </ion-item>
 
         <ion-list *ngIf="filteredSuggestions.length > 0">
@@ -27,6 +27,7 @@
           <ion-textarea
           label="Descripción de tu trabajo"
           labelPlacement="floating"
+          [(ngModel)]="des_necesidad"
           placeholder="Ej: Nesecito reparar. Estoy buscando construir."
           autoGrow="true"
           maxlength="500"
@@ -34,8 +35,8 @@
         </ion-item>
         <br/>
         <div class="centrar-boton">
-        <ion-button size="small">
-          <ion-icon slot="end" name="send-outline"></ion-icon>
+        <ion-button size="small" (click)="validarCampos()">
+          <ion-icon slot="end" name="send-outline" ></ion-icon>
           Enviar
         </ion-button>
          </div>

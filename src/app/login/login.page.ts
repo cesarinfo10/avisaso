@@ -84,6 +84,7 @@ export class LoginPage implements OnInit {
         localStorage.setItem('dni', this.usuario.dni);
         localStorage.setItem('nombre', data['nombres']);
         localStorage.setItem('apellido', data['apellidos']);
+        localStorage.setItem('celular', data['celular']);
 
         this.menu.enable(true);
 

@@ -79,7 +79,7 @@ export class RegistroPage implements OnInit {
         password: this.usuario.password,
         rep_password: this.usuario.rep_password,
       };
-    this.userService.addUser(datos)
+    this.userService.newUser(datos)
       .then(
         async data => {
           if (data === 2) {

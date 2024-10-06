@@ -10,11 +10,11 @@ import { NavController } from '@ionic/angular';
 export class AppComponent {
   public appPages = [
     { title: 'Home', url: 'home', icon: 'home' },
-    /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },*/
+    /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },,*/
     { title: 'Usuario', url: 'usuario', icon: 'person' },
     { title: 'Servicios', url: 'servicios', icon: 'briefcase' },
+    { title: 'Busueda', url: 'busqueda', icon: 'search' },
+    { title: 'Licitaciones', url: 'mis-licitaciones', icon: 'archive' },
 
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

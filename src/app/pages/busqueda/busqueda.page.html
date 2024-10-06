@@ -9,7 +9,8 @@
 
 <ion-content [fullscreen]="true">
   <ion-item class="custom-ion-item">
-    <ion-input type="text" (ionChange)="consultarServivesUser()" label="Buscar Servicio" labelPlacement="floating" placeholder="ingrese busqueda" [(ngModel)]="nomServicio"></ion-input>
+     <!-- <ion-input type="text"  label="Buscar Servicio" labelPlacement="floating" placeholder="ingrese busqueda" [(ngModel)]="nomServicio"></ion-input>-->
+    <ion-input type="text" label="Busca Servicio" labelPlacement="floating" placeholder="Busca Servicio" [(ngModel)]="nomServicio" (ionInput)="filterSuggestions()" (ionChange)="consultarServivesUser()"></ion-input>
       <!-- Popover de Ayuda -->
       <ion-button id="open-popoverMap" class="button-solid3"><ion-icon name="help-circle-outline"></ion-icon></ion-button>
       <ion-popover [keepContentsMounted]="true" trigger="open-popoverMap">
@@ -18,6 +19,11 @@
         </ng-template>
       </ion-popover>
   </ion-item>
+  <ion-list *ngIf="filteredSuggestions.length > 0">
+    <ion-item *ngFor="let suggestion of filteredSuggestions" (click)="selectSuggestion(suggestion)">
+      {{ suggestion.nomServicio }}
+    </ion-item>
+  </ion-list>
     <!-- Botón Licitar con Icono de Ayuda -->
     <ion-button style="width: 80%;" class="button-solid3" (click)="licitar();">
       <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
@@ -27,7 +33,7 @@
     <ion-button id="open-popover" class="button-solid3"><ion-icon name="help-circle-outline"></ion-icon></ion-button>
     <ion-popover [keepContentsMounted]="true" trigger="open-popover">
       <ng-template>
-        <ion-content class="ion-padding">El licitar sirve para enviar un trabajo a varios prestadores de servicio
+        <ion-content class="ion-padding">Licitar sirve para enviar un trabajo a varios prestadores de servicio
                                          de forma automática, luego, te enviaran el valor de su
                                          trabajo a tu casilla de mensaje. Vos elegirás el más conveniente en precio y servicio.</ion-content>
       </ng-template>

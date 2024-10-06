@@ -36,9 +36,24 @@
   --border-color: #ffa039; /* Cambia el color del borde */
 }
 /* Asegúrate de que el contenedor del mapa tenga una altura del 100% */
-#map-container, #mapComb {
-  height: 100%;
+#map-container {
   width: 100%;
+  height: 100%; /* Cambia a 100% para ocupar todo el alto */
+  position: relative;
+}
+
+.map {
+  width: 100%;
+  height: 100%; /* Asegúrate de que el mapa ocupe toda la altura del contenedor */
+}
+
+/* Estilos específicos para iPhone */
+.ios-only #map-container {
+  height: 100%; /* Asegúrate de que el contenedor del mapa ocupe toda la altura */
+}
+
+.ios-only .map {
+  height: 100%; /* Asegúrate de que el mapa ocupe toda la altura del contenedor */
 }
 
 /* Asegúrate de que el cuerpo y el contenedor principal tengan una altura del 100% */
