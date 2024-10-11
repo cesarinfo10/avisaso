@@ -12,8 +12,11 @@ export class ServiceService {
 
   constructor(private http: HttpClient) { }
 
+  selectAllLicitaUser(dni: string): Observable<any> {
+    return this.http.get(apiUrl + `servicios/servicios.php?dni_usuario_licita=${dni}&todosServicios`);
+  }
   // ==============================================================
-  // REGISTRO DE SERVICIOS DEL USUARIOS
+  // REGISTRO DE LICITACIONES DEL USUARIOS
   // ==============================================================
   newServices(datos: any) {
     const body = JSON.stringify(datos);

@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerMiLicitacionPage implements OnInit {
 
+  messages = [
+    { text: 'Hola, ¿cómo estás?', isMine: true },
+    { text: 'Estoy bien, gracias. ¿Y Vos?', isMine: false },
+  ];
+
   constructor() { }
 
   ngOnInit() {

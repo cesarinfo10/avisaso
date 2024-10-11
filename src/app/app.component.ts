@@ -13,8 +13,9 @@ export class AppComponent {
     /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },,*/
     { title: 'Usuario', url: 'usuario', icon: 'person' },
     { title: 'Servicios', url: 'servicios', icon: 'briefcase' },
-    { title: 'Busueda', url: 'busqueda', icon: 'search' },
-    { title: 'Licitaciones', url: 'mis-licitaciones', icon: 'archive' },
+    { title: 'Busqueda', url: 'busqueda', icon: 'search' },
+    { title: 'Licitaiones', url: 'licitaciones', icon: 'document' },
+    { title: 'Mis Licitaciones', url: 'mis-licitaciones', icon: 'archive' },
 
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
