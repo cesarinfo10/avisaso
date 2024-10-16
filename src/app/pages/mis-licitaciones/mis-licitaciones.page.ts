@@ -21,13 +21,12 @@ export class MisLicitacionesPage implements OnInit {
     const dni_usuario_licita = localStorage.getItem('dni');
      if (dni_usuario_licita) {
        this.servicio.selectAllLicitaUser(dni_usuario_licita).subscribe(async data => {
-          console.log(data);
           this.licitaciones = data;
        });
      }
    }
 
-   irVerLicitacion() {
-    this.navCtrl.navigateRoot('/ver-mi-licitacion');
+   irVerLicitacion(id: string) {
+    this.navCtrl.navigateRoot(`/ver-mi-licitacion/${id}`);
   }
 }

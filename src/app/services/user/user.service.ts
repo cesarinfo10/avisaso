@@ -93,7 +93,7 @@ export class UserService {
     return this.http.get(`${apiUrl}servicios/usuarios.php?dni=${dni}&consultaUserSer`);
   }
    // ==============================================================
-  // LLAMAR SERVICIOS DEL USUARIO
+  // LLAMAR SERVICIOS POR USUARIO
   // ==============================================================
   selectAllServiceUserOne(idService: string): Observable<any> {
     return this.http.get(`${apiUrl}servicios/usuarios.php?idService=${idService}&consultaUserSerOne`);

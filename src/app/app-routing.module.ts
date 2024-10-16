@@ -44,7 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mis-licitaciones/mis-licitaciones.module').then( m => m.MisLicitacionesPageModule)
   },
   {
-    path: 'ver-mi-licitacion',
+    path: 'ver-mi-licitacion/:id',
     loadChildren: () => import('./pages/ver-mi-licitacion/ver-mi-licitacion.module').then( m => m.VerMiLicitacionPageModule)
   },
   {

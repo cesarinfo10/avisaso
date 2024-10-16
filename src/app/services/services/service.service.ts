@@ -33,4 +33,12 @@ export class ServiceService {
       }
     );
   }
+
+  // ==============================================================
+  // LLAMAR SERVICIOS POR USUARIO
+  // ==============================================================
+  selectOnelicitacionUser(id: string): Observable<any> {
+    return this.http.get(`${apiUrl}servicios/servicios.php?id=${id}&detalleLicitacionesUser`);
+  }
+
 }

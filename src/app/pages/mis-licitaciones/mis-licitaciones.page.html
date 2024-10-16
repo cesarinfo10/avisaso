@@ -23,7 +23,7 @@
         <ion-row *ngFor="let licta of licitaciones">
           <ion-col class="centered-col">{{ licta.nomServicio }}</ion-col>
           <ion-col class="centered-col">
-            <ion-button class="button-solid3" *ngIf="licta.id > 0" (click)="irVerLicitacion()"><ion-icon name="eye-outline"></ion-icon></ion-button>
+            <ion-button class="button-solid3" *ngIf="licta.id > 0" (click)="irVerLicitacion(licta.id)"><ion-icon name="eye-outline"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

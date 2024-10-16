@@ -9,6 +9,13 @@
 
 <ion-content [fullscreen]="true">
   <ion-list class="list-ios">
+    <ion-item  class="my-message">
+      <ion-label>
+        <p class="margen"> <strong>Solcitud a: {{nomServicio}}</strong></p>
+        <p class="margen"><strong>Se solicita:</strong> {{des_necesidad}}</p>
+      </ion-label>
+    </ion-item>
+
     <ion-item *ngFor="let message of messages" [ngClass]="{'my-message': message.isMine, 'other-message': !message.isMine}">
       <ion-label>
         <p class="margen">{{ message.text }}</p>
