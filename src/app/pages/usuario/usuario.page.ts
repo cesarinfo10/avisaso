@@ -71,7 +71,19 @@ export class UsuarioPage implements OnInit {
     };
     this.procesarImagen(options);
   }
+  async avisoPro(){
+    if (this.tipo_usuario === '3'){
+    const alert = await this.alertCtrl.create({
+          header: 'Registro de usuario',
+          message: 'Recuerde que posee 3 meses gratis, luego de este periodo se cobrará una pequeña cuota mensual.'
+          +' Si ya fue cliente el cobro se realzará el mes siguiente.',
+          buttons: ['OK']
+        });
+        await alert.present();
+    }
 
+
+  }
   /*=============================================
 	CARGAR IMAGEN DESDE LA LIBRERIA
 	=============================================*/

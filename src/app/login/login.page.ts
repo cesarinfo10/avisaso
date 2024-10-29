@@ -80,8 +80,9 @@ export class LoginPage implements OnInit {
     if (data && Object.keys(data).length > 0) {
     try {
       if (data['dni'] === this.usuario.dni && data['password'] === this.usuario.contrasena) {
-
+       // console.log(data);
         localStorage.setItem('dni', this.usuario.dni);
+        localStorage.setItem('tipo', data['tipo_usuario']);
         localStorage.setItem('nombre', data['nombres']);
         localStorage.setItem('apellido', data['apellidos']);
         localStorage.setItem('celular', data['celular']);

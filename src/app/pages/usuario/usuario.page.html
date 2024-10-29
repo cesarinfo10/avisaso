@@ -15,7 +15,8 @@
     <ion-card-content>
       <ion-list class="custom-ion-list">
         <ion-item class="custom-ion-item">
-          <ion-select label="Tipo Usuario" label-placement="floating" [(ngModel)]="tipo_usuario">
+          <ion-select label="Tipo Usuario" label-placement="floating" [(ngModel)]="tipo_usuario" (ngModelChange)="avisoPro()">
+            <ion-select-option value="">Seleccione</ion-select-option>
             <ion-select-option value="2">Buscar servicios</ion-select-option>
             <ion-select-option value="3">Ofrecer servicios</ion-select-option>
           </ion-select>
