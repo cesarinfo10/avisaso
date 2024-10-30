@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <div class="half-red-half-white">
+      <div class="image-container">
+        <img [src]="image" *ngIf="image" class="rounded-image" alt="Descripción de la imagen">
+        <img *ngIf="!image" src="../../assets/images/perfil.png" class="responsive-image" />
+      </div>
+    </div>
+    <ion-card-header>
+      <ion-card-title >Usuario: {{usuario}}</ion-card-title>
+      <ion-card-subtitle class="text-center">Nombre : {{nombres}} {{apellidos}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="text-center">
+      {{descripcion}}
+    </ion-card-content>
+  </ion-card>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Mis trabajos</ion-card-title>
+    <ion-card-subtitle></ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-item class="custom-ion-item">
+      <ion-button class="button-solid" style="width:50%;" (click)="irABusqueda()">Buscar Servicio
+        <ion-icon  slot="end" name="search"></ion-icon>
+      </ion-button>
+
+          <ion-button class="button-solid" style="width:50%;">Ver Mi Perfil
+        <ion-icon  slot="end" name="person"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

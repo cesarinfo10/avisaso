@@ -22,6 +22,7 @@ export class AppComponent {
     { title: 'Busqueda', url: 'busqueda', icon: 'search' },
     { title: 'Licitaiones', url: 'licitaciones', icon: 'document', visible: true },
     { title: 'Mis Licitaciones', url: 'mis-licitaciones', icon: 'archive' },
+    { title: 'Mi Perfil', url: 'perfil', icon: 'people' },
 
   ];
 

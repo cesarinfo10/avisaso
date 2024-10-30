@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'licitaciones',
     loadChildren: () => import('./pages/licitaciones/licitaciones.module').then( m => m.LicitacionesPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   }
 ];
 
