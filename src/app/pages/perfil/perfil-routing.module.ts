@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PerfilPage
+  },  {
+    path: 'cargar-trabajo',
+    loadChildren: () => import('./cargar-trabajo/cargar-trabajo.module').then( m => m.CargarTrabajoPageModule)
   }
+
 ];
 
 @NgModule({
