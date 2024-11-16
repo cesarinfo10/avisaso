@@ -50,7 +50,7 @@ export class PerfilPage implements OnInit {
       });
     }
   }
-  irABusqueda() {
-    this.router.navigate(['/busqueda']);
+  goAddJob() {
+    this.router.navigate(['/cargar-trabajo']);
     }
 }

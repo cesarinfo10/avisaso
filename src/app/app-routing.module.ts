@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'cargar-trabajo',
+    loadChildren: () => import('./pages/perfil/cargar-trabajo/cargar-trabajo-routing.module').then( m => m.CargarTrabajoPageRoutingModule)
   }
 ];
 
