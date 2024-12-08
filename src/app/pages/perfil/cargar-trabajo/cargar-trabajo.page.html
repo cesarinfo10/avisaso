@@ -15,7 +15,7 @@
     <ion-card-content>
       <ion-list class="custom-ion-list">
         <ion-item class="custom-ion-item">
-          <ion-input type="text" label="Título" labelPlacement="floating" placeholder="Título"></ion-input>
+          <ion-input type="text" label="Título" labelPlacement="floating" placeholder="Título" [(ngModel)]="nomTrabajo" name="nomTrabajo" ></ion-input>
         </ion-item>
         <ion-item class="custom-ion-item">
           <ion-textarea
@@ -25,7 +25,16 @@
           name="descripcion"
           autoGrow="true"
           maxlength="1000"
+          [(ngModel)]="descripcion"
+          name="descripcion"
         ></ion-textarea>
+        </ion-item>
+        <ion-item class="custom-ion-item">
+          <ion-label>Estado</ion-label>
+          <ion-select [(ngModel)]="estado" name="estado" interface="popover">
+            <ion-select-option value="1" selected>Activo</ion-select-option>
+            <ion-select-option value="2">Inactivo</ion-select-option>
+          </ion-select>
         </ion-item>
         <br/>
         <div class="centrar-boton">
