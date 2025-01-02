@@ -52,4 +52,8 @@ export class FolderPage implements OnInit {
   irABusqueda() {
     this.router.navigate(['/busqueda']);
     }
+
+  irAPerfil() {
+      this.router.navigate(['/perfil']);
+      }
 }
