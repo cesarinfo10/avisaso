@@ -37,12 +37,9 @@
           </ion-select>
         </ion-item>
         <br/>
-        <div class="centrar-boton">
-        <ion-button size="small">
-          <ion-icon slot="end"  name="save-outline" (click)="guardarTrabajo()"></ion-icon>
-          Guardar
-        </ion-button>
-         </div>
+        <ion-item class="custom-ion-item">
+          <ion-button class="button-solid2" style="width:100%;" expand="full" (click)="guardarTrabajo()">Guardar<ion-icon slot="end"  name="save-outline"></ion-icon></ion-button>
+        </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>

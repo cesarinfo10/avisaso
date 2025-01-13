@@ -16,16 +16,17 @@ export class CargarTrabajoPage implements OnInit {
   constructor(private servicio:TrabajosService) { }
 
   ngOnInit() {
+
   }
 
   guardarTrabajo() {
+    console.log('Valor de nomTrabajo:', this.nomTrabajo); // Agrega este log para verificar el valor de nomTrabajo
     const usuarioServ = {
-
-      nomTrabajo: this.nomTrabajo,
+        nomTrabajo: this.nomTrabajo,
         descripcion: this.descripcion,
         estado: this.estado,
         dni: localStorage.getItem('dni') || undefined
-        };
+    };
         console.log('Valor de usuarioServ:', usuarioServ); // Agrega este log para verificar el valor de usuarioServ
 /*
         this.servicio.addSerUser(usuarioServ)
