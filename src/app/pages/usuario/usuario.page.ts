@@ -6,7 +6,6 @@ import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 
-
 const apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-usuario',
@@ -33,6 +32,7 @@ export class UsuarioPage implements OnInit {
 
   public image: string= apiUrl+'/assets/perfil.png';
 
+  public navegador: any;
 
   constructor(private servicio: UserService,
               private platform: Platform,
@@ -170,11 +170,17 @@ export class UsuarioPage implements OnInit {
             const alert = await this.alertCtrl.create({
               header: 'Registro de usuario',
               message: 'Usuario registrado con éxito',
-              buttons: ['OK']
+              buttons: [
+                {
+                  text: 'OK',
+                  handler: () => {
+                    this.limpiarCampos();
+                    this.mostrarAlerta();
+                  }
+                }
+              ]
             });
             await alert.present();
-            this.limpiarCampos();
-
           }
         }
       )
@@ -201,6 +207,30 @@ export class UsuarioPage implements OnInit {
     this.navCtrl.navigateRoot('/home');
   }
 
+  async mostrarAlerta() {
+    const alert = await this.alertCtrl.create({
+      header: 'Atención',
+      message: 'Para que los cambios tengan efecto se cerrará la aplicación',
+      buttons: [
+        {
+          text: 'OK',
+          handler: async () => {
+            localStorage.clear();
+            if (this.platform.is('cordova')) {
+              this.navCtrl.navigateRoot('/login');
+            } else {
+              // Si está en la web
+              sessionStorage.clear();
+              localStorage.clear();
+              this.navCtrl.navigateRoot('/login');
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   async consultarUser() {
 
     const dni = localStorage.getItem('dni');

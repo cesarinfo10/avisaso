@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { UserService } from '../services/user/user.service';
 import { MenuController } from '@ionic/angular';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginPage implements OnInit {
     private userService: UserService,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private menu: MenuController
+    private menu: MenuController,
+    private appComponent: AppComponent
   ) {}
 
     // Deshabilita el menú cuando la vista está a punto de entrar
@@ -89,7 +91,9 @@ export class LoginPage implements OnInit {
 
         this.menu.enable(true);
 
-        this.navCtrl.navigateRoot('/home');
+        this.navCtrl.navigateRoot('/home').then(() => {
+          this.appComponent.setMenuVisibility();
+        });
       } else {
         return;
       }

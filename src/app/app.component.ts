@@ -33,7 +33,8 @@ export class AppComponent {
     this.setMenuVisibility();
   }
 
-  setMenuVisibility() {
+  async setMenuVisibility() {
+    setTimeout(() => {
     const tipoUsuario = localStorage.getItem('tipo');
     if (tipoUsuario) {
       this.tipoUsuario = parseInt(tipoUsuario, 10);
@@ -51,6 +52,7 @@ export class AppComponent {
       }
       return { ...page, visible: false };
     });
+  }, 1000);
   }
 
 
