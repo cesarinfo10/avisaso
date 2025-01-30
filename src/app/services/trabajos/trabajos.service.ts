@@ -12,14 +12,14 @@ export class TrabajosService {
 
   constructor(private http: HttpClient) { }
 
-    // ==============================================================
+  // ==============================================================
   // REGISTRO DE LICITACIONES DEL USUARIOS
   // ==============================================================
-  newServices(datos: any) {
+  newJob(datos: any) {
     const body = JSON.stringify(datos);
     return new Promise(
       resolve => {
-        this.http.post(apiUrl + 'servicios/servicios.php?addServicio', body)
+        this.http.post(apiUrl + 'servicios/trabajos.php?addTrabajos', body)
           .subscribe(
             data => {
               resolve(data);
@@ -29,5 +29,25 @@ export class TrabajosService {
             });
       }
     );
+  }
+
+  // ==============================================================
+  // REGISTRO DE LICITACIONES DEL USUARIOS
+  // ==============================================================
+  subirAlbum(datos: any) {
+    console.log('Datos recibidos:', datos);
+    /*const body = JSON.stringify(datos);
+    return new Promise(
+      resolve => {
+        this.http.post(apiUrl + 'servicios/trabajos.php?addTrabajos', body)
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            err => {
+              console.log(err);
+            });
+      }
+    );*/
   }
 }

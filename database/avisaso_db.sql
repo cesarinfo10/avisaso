@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-01-2025 a las 19:36:24
+-- Tiempo de generación: 30-01-2025 a las 18:15:57
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 7.4.33
 
@@ -74,11 +74,22 @@ CREATE TABLE `licitar_visto_responde` (
 
 CREATE TABLE `mis_trabajo` (
   `id` int(11) NOT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
+  `dni_usuario` varchar(20) DEFAULT NULL,
   `titulo` varchar(255) DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
   `estado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `mis_trabajo`
+--
+
+INSERT INTO `mis_trabajo` (`id`, `dni_usuario`, `titulo`, `descripcion`, `estado`) VALUES
+(1, NULL, NULL, 'Tenemos pruebas', 1),
+(2, '92767291', 'cosas', 'Prueba de cosas', 1),
+(3, '92767291', 'cosas', 'Prueba de cosas', 1),
+(4, '92767291', 'prueba', 'prueba 03', 1),
+(5, '92767291', 'Mas Pruebas', '--', 1);
 
 -- --------------------------------------------------------
 
@@ -232,7 +243,7 @@ ALTER TABLE `licitar_visto_responde`
 --
 ALTER TABLE `mis_trabajo`
   ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `idUserJob` (`id_usuario`) USING BTREE;
+  ADD KEY `dniUserJob` (`dni_usuario`);
 
 --
 -- Indices de la tabla `notificaciones`
@@ -273,7 +284,8 @@ ALTER TABLE `tipo_usuario`
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD KEY `idtipo` (`tipo_usuario`) USING BTREE,
-  ADD KEY `dni` (`dni`) USING BTREE;
+  ADD KEY `dni` (`dni`) USING BTREE,
+  ADD KEY `id` (`id`,`dni`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -301,7 +313,7 @@ ALTER TABLE `licitar_visto_responde`
 -- AUTO_INCREMENT de la tabla `mis_trabajo`
 --
 ALTER TABLE `mis_trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `notificaciones`
@@ -365,7 +377,7 @@ ALTER TABLE `licitar_visto_responde`
 -- Filtros para la tabla `mis_trabajo`
 --
 ALTER TABLE `mis_trabajo`
-  ADD CONSTRAINT `idUserJob` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+  ADD CONSTRAINT `dniUserJob` FOREIGN KEY (`dni_usuario`) REFERENCES `usuarios` (`dni`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `notificaciones`
