@@ -3,8 +3,6 @@ import { TrabajosService } from '../../../services/trabajos/trabajos.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HttpClient } from '@angular/common/http';
-import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
-import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-cargar-trabajo',
@@ -23,9 +21,7 @@ export class CargarTrabajoPage implements OnInit {
               private servicioJob:TrabajosService,
               private navCtrl: NavController,
               private alertCtrl: AlertController,
-              private http: HttpClient,
-              private imagePicker: ImagePicker,
-              private file: File) { }
+              private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -80,35 +76,24 @@ export class CargarTrabajoPage implements OnInit {
 	CARGAR IMAGEN DESDE LA LIBRERIA
 	=============================================*/
   async libreria() {
-    const options: ImagePickerOptions = {
-      maximumImagesCount: 10, // Número máximo de imágenes que se pueden seleccionar
+    const options: CameraOptions = {
       quality: 100,
-      outputType: 0 // 0 = file URI
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum: false
     };
-
     try {
-      const results = await this.imagePicker.getPictures(options);
-      for (let i = 0; i < results.length; i++) {
-        const filePath = results[i];
-        const base64Image = await this.convertFileToBase64(filePath);
-        this.photos.push(base64Image);
-        console.log('Foto seleccionada:', base64Image);
-      }
-      await this.guardarFotos(); // Llamar a guardarFotos después de seleccionar las fotos
+      const imageData = await this.camera.getPicture(options);
+      const base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.photos.push(base64Image);
     } catch (error) {
       const alert = await this.alertCtrl.create({
         header: 'Error',
-        message: 'Error al seleccionar fotos: ' + error,
+        message: 'Error al tomar la foto: ' + error,
         buttons: ['OK']
       });
       await alert.present();
     }
-  }
-
-    async convertFileToBase64(filePath: string): Promise<string> {
-    const fileEntry = await this.file.resolveLocalFilesystemUrl(filePath) as any;
-    const file = await this.file.readAsDataURL(fileEntry.nativeURL, '');
-    return file;
   }
 
     async takePhoto() {
@@ -123,6 +108,8 @@ export class CargarTrabajoPage implements OnInit {
         const imageData = await this.camera.getPicture(options);
         const base64Image = 'data:image/jpeg;base64,' + imageData;
         this.photos.push(base64Image);
+        console.log('Foto seleccionada:', base64Image);
+        console.log('Fotos en la variable photos:', JSON.stringify(this.photos, null, 2));
       } catch (error) {
         const alert = await this.alertCtrl.create({
           header: 'Error',
@@ -133,23 +120,34 @@ export class CargarTrabajoPage implements OnInit {
       }
     }
 
+    async verVariableFotos() {
+      console.log('Fotos en la variable photos:', JSON.stringify(this.photos, null, 2));
+    }
+
+
     async guardarFotos() {
+      // Verificar que todas las fotos están en la variable photos
+      console.log('Fotos en la variable photos:', JSON.stringify(this.photos, null, 2));
+  
       const fotosBase64 = this.photos.map(photo => {
         return {
           base64: photo
         };
       });
-      console.log('Fotos a enviar:', fotosBase64);
+  
+      console.log('Fotos a enviar:', JSON.stringify(fotosBase64, null, 2));
+  
       try {
-        const response = await this.servicioJob.subirAlbum( { fotos: fotosBase64 })
+        const response = await this.servicioJob.subirAlbum({ fotos: fotosBase64 });
+        console.log('Respuesta del servidor:', response);
         const alert = await this.alertCtrl.create({
           header: 'Registro exitoso',
           message: 'Fotos subidas con éxito',
           buttons: ['OK']
         });
         await alert.present();
-        //console.log('Fotos subidas con éxito', response);
       } catch (error) {
+        console.error('Error al subir las fotos:', error);
         const alert = await this.alertCtrl.create({
           header: 'Error',
           message: 'Error al subir las fotos: ' + error,
@@ -158,7 +156,6 @@ export class CargarTrabajoPage implements OnInit {
         await alert.present();
       }
     }
-
 
     limpiarRegistro() {
       this.nomTrabajo = '';
