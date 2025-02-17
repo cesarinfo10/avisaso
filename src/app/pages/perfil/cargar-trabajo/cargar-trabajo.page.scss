@@ -112,3 +112,33 @@ ion-card-title {
   display: block;
   margin: 0 auto; /* Centra la imagen horizontalmente */
 }
+
+.photo-container {
+  position: relative;
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  --size: 40px; /* Ajusta el tamaño del botón */
+  --border-radius: 50%; /* Hace que el botón sea redondo */
+  --background: #ff0000; /* Color de fondo del botón */
+  --color: #ffffff; /* Color del icono */
+}
+
+.rotate-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 10;
+  --size: 40px; /* Ajusta el tamaño del botón */
+  --border-radius: 50%; /* Hace que el botón sea redondo */
+  --background: #007bff; /* Color de fondo del botón */
+  --color: #ffffff; /* Color del icono */
+}
+
+.delete-button ion-icon {
+  font-size: 24px; /* Ajusta el tamaño del icono */
+}

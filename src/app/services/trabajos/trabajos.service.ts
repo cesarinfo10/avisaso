@@ -35,11 +35,11 @@ export class TrabajosService {
   // REGISTRO DE LICITACIONES DEL USUARIOS
   // ==============================================================
   subirAlbum(datos: any) {
-    console.log('Datos recibidos:', datos);
-    /*const body = JSON.stringify(datos);
+    const body = JSON.stringify(datos);
+    
     return new Promise(
       resolve => {
-        this.http.post(apiUrl + 'servicios/trabajos.php?addTrabajos', body)
+        this.http.post(apiUrl + 'servicios/trabajos.php?addFotosTrabajos', body)
           .subscribe(
             data => {
               resolve(data);
@@ -48,6 +48,6 @@ export class TrabajosService {
               console.log(err);
             });
       }
-    );*/
+    )
   }
 }

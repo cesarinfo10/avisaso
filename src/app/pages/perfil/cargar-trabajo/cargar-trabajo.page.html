@@ -53,8 +53,14 @@
   </ion-item>
   <ion-grid *ngIf="photos.length > 0">
     <ion-row>
-      <ion-col size="6" *ngFor="let photo of photos">
-        <ion-img [src]="photo"></ion-img>
+      <ion-col size="6" *ngFor="let photo of photos; let i = index" class="photo-container">
+        <ion-img [src]="photo" [ngStyle]="{'transform': 'rotate(' + (rotations[i] || 0) + 'deg)'}"></ion-img>
+        <ion-button fill="clear" color="danger" class="delete-button" (click)="eliminarFoto(i)">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="primary" class="rotate-button" (click)="girarFoto(i)">
+          <ion-icon name="refresh"></ion-icon>
+        </ion-button>
       </ion-col>
     </ion-row>
     <ion-button *ngIf="photos.length > 0" (click)="verVariableFotos()">Guardar</ion-button>

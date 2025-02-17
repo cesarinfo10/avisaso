@@ -16,6 +16,8 @@ export class CargarTrabajoPage implements OnInit {
   estado: string = '1'; // Valor predeterminado
   public isCardVisible: boolean = true;
   public photos: string[] = [];
+  public rotations: number[] = []; // Array para almacenar las rotaciones
+
 
   constructor(private camera: Camera,
               private servicioJob:TrabajosService,
@@ -76,6 +78,15 @@ export class CargarTrabajoPage implements OnInit {
 	CARGAR IMAGEN DESDE LA LIBRERIA
 	=============================================*/
   async libreria() {
+    if (this.photos.length >= 4) {
+      const alert = await this.alertCtrl.create({
+        header: 'Límite alcanzado',
+        message: 'Solo puedes cargar hasta 4 imágenes.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -86,6 +97,8 @@ export class CargarTrabajoPage implements OnInit {
       const imageData = await this.camera.getPicture(options);
       const base64Image = 'data:image/jpeg;base64,' + imageData;
       this.photos.push(base64Image);
+      this.rotations.push(0); // Agrega la rotación correspondiente
+      this.guardarFotos(base64Image);
     } catch (error) {
       const alert = await this.alertCtrl.create({
         header: 'Error',
@@ -96,7 +109,17 @@ export class CargarTrabajoPage implements OnInit {
     }
   }
 
+
     async takePhoto() {
+      if (this.photos.length >= 4) {
+        const alert = await this.alertCtrl.create({
+          header: 'Límite alcanzado',
+          message: 'Solo puedes cargar hasta 4 imágenes.',
+          buttons: ['OK']
+        });
+        await alert.present();
+        return;
+      }
       const options: CameraOptions = {
         quality: 100,
         destinationType: this.camera.DestinationType.DATA_URL,
@@ -108,8 +131,8 @@ export class CargarTrabajoPage implements OnInit {
         const imageData = await this.camera.getPicture(options);
         const base64Image = 'data:image/jpeg;base64,' + imageData;
         this.photos.push(base64Image);
-        console.log('Foto seleccionada:', base64Image);
-        console.log('Fotos en la variable photos:', JSON.stringify(this.photos, null, 2));
+        this.rotations.push(0); 
+        this.guardarFotos(base64Image);
       } catch (error) {
         const alert = await this.alertCtrl.create({
           header: 'Error',
@@ -125,38 +148,35 @@ export class CargarTrabajoPage implements OnInit {
     }
 
 
-    async guardarFotos() {
-      // Verificar que todas las fotos están en la variable photos
-      console.log('Fotos en la variable photos:', JSON.stringify(this.photos, null, 2));
-  
-      const fotosBase64 = this.photos.map(photo => {
-        return {
-          base64: photo
-        };
-      });
-  
-      console.log('Fotos a enviar:', JSON.stringify(fotosBase64, null, 2));
-  
-      try {
-        const response = await this.servicioJob.subirAlbum({ fotos: fotosBase64 });
-        console.log('Respuesta del servidor:', response);
-        const alert = await this.alertCtrl.create({
-          header: 'Registro exitoso',
-          message: 'Fotos subidas con éxito',
-          buttons: ['OK']
-        });
-        await alert.present();
-      } catch (error) {
-        console.error('Error al subir las fotos:', error);
-        const alert = await this.alertCtrl.create({
-          header: 'Error',
-          message: 'Error al subir las fotos: ' + error,
-          buttons: ['OK']
-        });
-        await alert.present();
-      }
+    async guardarFotos(base64Image: string) {  
+      const datos = {
+        id_trabajo: 1,
+        foto: base64Image,
+        estado: '1'
+      };
+
+      console.log('Datos de la foto:', datos);
+      this.servicioJob.subirAlbum(datos)
+      .then(
+        async data => {
+          console.log(data);
+        }
+      )
+      .catch(
+        error => {
+          console.log(error + 'no se pudo insertar datos');
+        }
+      );
     }
 
+    eliminarFoto(index: number) {
+      this.photos.splice(index, 1);
+      this.rotations.splice(index, 1); // Elimina la rotación correspondiente
+    }
+  
+    girarFoto(index: number) {
+      this.rotations[index] = (this.rotations[index] + 90) % 360; // Incrementa la rotación en 90 grados
+    }
     limpiarRegistro() {
       this.nomTrabajo = '';
       this.descripcion = '';
