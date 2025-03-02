@@ -52,8 +52,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/licitaciones/licitaciones.module').then( m => m.LicitacionesPageModule)
   },
   {
+    path: 'perfil/:dni',
+    loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+  },
+  {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
   },
   {
     path: 'cargar-trabajo',

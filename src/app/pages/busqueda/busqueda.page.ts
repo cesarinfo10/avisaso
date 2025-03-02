@@ -48,7 +48,7 @@ export class BusquedaPage implements OnInit {
       this.post.coords = coords;
       this.mapa([
 
-        { latitude: -41.1334722, longitude: -71.3102778, nombres: 'Centro Cívico', celular: '+56 9 2944 39393939' },
+        { latitude: resp.coords.latitude, longitude: resp.coords.longitude, nombres: 'Mi Ubicación', celular: `${localStorage.getItem('celular')}`, dni: '' }
 
       ]);
     }).catch((error) => {
@@ -65,7 +65,7 @@ export class BusquedaPage implements OnInit {
     this.getSuggestions();
   }
 
-  mapa(coordenadas: { latitude: number, longitude: number, nombres: string, celular: string }[]) {
+  mapa(coordenadas: { latitude: number, longitude: number, nombres: string, celular: string, dni: string}[]) {
     this.map = new mapboxgl.Map({
       container: 'mapComb',
       style: this.style,
@@ -80,20 +80,24 @@ export class BusquedaPage implements OnInit {
           .setLngLat([coord.longitude, coord.latitude])
           .addTo(this.map);
 
+        // Omitir la creación del popup si es tu propia ubicación
+        if (coord.nombres !== 'Mi Ubicación') {
           const popup = new mapboxgl.Popup({ closeOnClick: false })
-          .setHTML(`
-            <div style="background-color: orange; color: black; padding: 10px; border-radius: 5px;">
-              <h3>${coord.nombres}</h3>
-              <p>
-                <a href="https://wa.me/${this.formatPhoneNumber(coord.celular)}?text=${encodeURIComponent(`Hola ${coord.nombres}, Te encontré en AVISASO y quisiera más información de tus servicios.`)}" target="_blank" style="color: white; text-decoration: none;">
-                  <i class="fab fa-whatsapp" style="color: green;"></i> ${coord.celular}
+            .setHTML(`
+              <div style="background-color: orange; color: black; padding: 5px; border-radius: 3px;">
+                <h6>${coord.nombres}</h6>
+                  <a href="https://wa.me/${coord.celular}?text=${encodeURIComponent(`Hola ${coord.nombres}, Te encontré en AVISASO y quisiera más información de tus servicios.`)}" target="_blank" style="color: white; text-decoration: none;">
+                    <i class="fab fa-whatsapp" style="color: green;"></i> ${coord.celular}
+                  </a>
+                <br/>
+                <a href="/perfil/${coord.dni}" style="color: white; text-decoration: none;">
+                  <i class="fas fa-user" style="color: white;"></i> Ver Perfil
                 </a>
-              </p>
-            </div>
-          `);
+              </div>
+            `);
 
-        marker.setPopup(popup);
-
+          marker.setPopup(popup);
+        }
       }
     });
   }
@@ -121,11 +125,12 @@ export class BusquedaPage implements OnInit {
     console.log(nomServicio);
     this.servicio.busquedaServiceUserOne(nomServicio).subscribe(async data => {
       console.log('Datos recibidos:', data); // Verifica la estructura de los datos recibidos
-      const coordenadas = data.map((item: { latitud: number, longitud: number, nombres: string, celular: string }) => ({
+      const coordenadas = data.map((item: { latitud: number, longitud: number, nombres: string, celular: string, dni: string }) => ({
         latitude: item.latitud,
         longitude: item.longitud,
         nombres: item.nombres,
-        celular: item.celular
+        celular: item.celular,
+        dni: item.dni
       }));
       console.log('Coordenadas:', coordenadas); // Verifica las coordenadas mapeadas
       this.mapa(coordenadas);

@@ -43,13 +43,16 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-<ion-card>
-  <ion-item class="custom-ion-item" >
+  <ion-card *ngIf="isPhotoCardVisible">
+  <ion-item class="custom-ion-item" *ngIf="isMobile">
     <ion-button class="button-solid" style="width:50%;" (click)="takePhoto()">Toma foto
       <ion-icon slot="end" name="camera"></ion-icon>
     </ion-button>
     <ion-button class="button-solid" style="width:50%;" expand="full" (click)="libreria()">Cargar Foto <ion-icon slot="end" name="cloud-upload"></ion-icon>
     </ion-button>
+  </ion-item>
+  <ion-item class="custom-ion-item" *ngIf="!isMobile">
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
   </ion-item>
   <ion-grid *ngIf="photos.length > 0">
     <ion-row>
@@ -63,8 +66,10 @@
         </ion-button>
       </ion-col>
     </ion-row>
-    <ion-button *ngIf="photos.length > 0" (click)="verVariableFotos()">Guardar</ion-button>
   </ion-grid>
+  <ion-item class="custom-ion-item">
+    <ion-button class="button-solid2" style="width:100%;" expand="full" (click)="guarYsalir()">Guardar y Salir<ion-icon slot="end"  name="save-outline"></ion-icon></ion-button>
+  </ion-item>
 </ion-card>
 
 </ion-content>

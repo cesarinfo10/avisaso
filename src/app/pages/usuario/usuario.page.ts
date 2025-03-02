@@ -143,8 +143,8 @@ export class UsuarioPage implements OnInit {
     const usuarioDto = {
           tipo_usuario: this.tipo_usuario,
           correo: this.correo,
-          celular: this.celular,
-          telefono: this.telefono,
+          celular: '+549'+this.celular,
+          telefono: '+549'+this.telefono,
           direccion: this.direccion,
           latitud: this.latitud,
           longitud: this.longitud,
@@ -240,8 +240,8 @@ export class UsuarioPage implements OnInit {
        //  this.users = [data];
        this.tipo_usuario = data["tipo_usuario"] || '';
        this.correo = data["correo"] || '';
-       this.celular = data["celular"] || '';
-       this.telefono = data["telefono"] || '';
+       this.celular = this.removePrefix(data["celular"] || '');
+       this.telefono = this.removePrefix(data["telefono"] || '');
        this.direccion = data["direccion"] || '';
        this.latitud = data["latitud"] || '';
        this.longitud = data["longitud"] || '';
@@ -253,4 +253,12 @@ export class UsuarioPage implements OnInit {
        });
      }
    }
+
+  // Función para eliminar el prefijo +549
+  removePrefix(phoneNumber: string): string {
+    if (phoneNumber.startsWith('+549')) {
+      return phoneNumber.substring(4);
+    }
+    return phoneNumber;
+  }
 }

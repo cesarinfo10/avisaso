@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrabajosService } from '../../../services/trabajos/trabajos.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, Platform } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,19 +14,23 @@ export class CargarTrabajoPage implements OnInit {
   nomTrabajo: string = '';
   descripcion: string = '';
   estado: string = '1'; // Valor predeterminado
+  isMobile: boolean = false;
+
   public isCardVisible: boolean = true;
   public photos: string[] = [];
   public rotations: number[] = []; // Array para almacenar las rotaciones
-
+  public isPhotoCardVisible: boolean = false;
+  public photoIds: string[] = []; // Array para almacenar los IDs de las fotos
 
   constructor(private camera: Camera,
               private servicioJob:TrabajosService,
               private navCtrl: NavController,
               private alertCtrl: AlertController,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private platform: Platform,) { }
 
   ngOnInit() {
-
+    this.isMobile = this.platform.is('mobile') || this.platform.is('android') || this.platform.is('ios');
   }
 
   guardarTrabajo() {
@@ -59,6 +63,7 @@ export class CargarTrabajoPage implements OnInit {
             console.log(data);
             localStorage.setItem('id_job', data as any);
             this.isCardVisible = false;
+            this.isPhotoCardVisible = true; // Mostrar la tarjeta de fotos
             this.limpiarRegistro();
           }
           }
@@ -131,7 +136,7 @@ export class CargarTrabajoPage implements OnInit {
         const imageData = await this.camera.getPicture(options);
         const base64Image = 'data:image/jpeg;base64,' + imageData;
         this.photos.push(base64Image);
-        this.rotations.push(0); 
+        this.rotations.push(0);
         this.guardarFotos(base64Image);
       } catch (error) {
         const alert = await this.alertCtrl.create({
@@ -143,15 +148,37 @@ export class CargarTrabajoPage implements OnInit {
       }
     }
 
-    async verVariableFotos() {
-      console.log('Fotos en la variable photos:', JSON.stringify(this.photos, null, 2));
+    onFileSelected(event: any) {
+      const file: File = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const base64Image = e.target.result;
+          this.photos.push(base64Image);
+          this.rotations.push(0);
+          this.guardarFotos(base64Image);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    async guarYsalir() {
+
+      this.photoIds = [];
+      // Eliminar id_job e id_foto del almacenamiento local
+      localStorage.removeItem('id_job');
+      localStorage.removeItem('id_foto');
+
+      // Redirigir al menú de "Mi Perfil"
+      this.navCtrl.navigateRoot('/perfil');
     }
 
 
-    async guardarFotos(base64Image: string) {  
+    async guardarFotos(base64Image: string) {
       const datos = {
-        id_trabajo: 1,
+        id_trabajo: localStorage.getItem('id_job') || undefined,
         foto: base64Image,
+        rotacion: 0,
         estado: '1'
       };
 
@@ -160,6 +187,8 @@ export class CargarTrabajoPage implements OnInit {
       .then(
         async data => {
           console.log(data);
+          localStorage.setItem('id_foto', data as any);
+          this.photoIds.push(data as any);
         }
       )
       .catch(
@@ -170,13 +199,51 @@ export class CargarTrabajoPage implements OnInit {
     }
 
     eliminarFoto(index: number) {
-      this.photos.splice(index, 1);
-      this.rotations.splice(index, 1); // Elimina la rotación correspondiente
+      const photoId = this.photoIds[index]; // Obtiene el ID de la foto
+    // console.log('Valor de photoId:', photoId); // Agrega este log para verificar el valor de photoId
+      this.servicioJob.eliminarFoto(photoId)
+        .then(
+          async data => {
+            console.log(data);
+            this.photos.splice(index, 1);
+            this.photoIds.splice(index, 1); // Elimina el ID correspondiente
+            this.rotations.splice(index, 1); // Elimina la rotación correspondiente
+          }
+        )
+        .catch(
+          error => {
+            console.log(error + 'no se pudo eliminar la foto');
+          }
+        );
     }
-  
+
+
     girarFoto(index: number) {
       this.rotations[index] = (this.rotations[index] + 90) % 360; // Incrementa la rotación en 90 grados
+      this.guardarRotacion(index); // Guarda la nueva rotación en el servidor
     }
+
+    async guardarRotacion(index: number) {
+      const datos = {
+        id: localStorage.getItem('id_foto') || undefined,
+        id_trabajo: localStorage.getItem('id_job') || undefined,
+        foto: this.photos[index],
+        rotacion: this.rotations[index],
+        estado: '1'
+      };
+      this.servicioJob.actualizarRotacion(datos)
+        .then(
+          async (data: any) => {
+            console.log(data);
+          }
+        )
+        .catch(
+          (error: string) => {
+            console.log(error + 'no se pudo actualizar la rotación');
+          }
+        );
+    }
+
     limpiarRegistro() {
       this.nomTrabajo = '';
       this.descripcion = '';

@@ -16,8 +16,13 @@
       </div>
     </div>
     <ion-card-header>
-      <ion-card-title >Usuario: {{usuario}}</ion-card-title>
+      <ion-card-subtitle class="text-center">Contacto:
+        <a [href]="getWhatsAppLink()" target="_blank" style="color: white; text-decoration: none;">
+          <i class="fab fa-whatsapp" style="color: green;"></i> {{cel}}
+        </a>
+      </ion-card-subtitle>
       <ion-card-subtitle class="text-center">Nombre : {{nombres}} {{apellidos}}</ion-card-subtitle>
+      <ion-card-title>Usuario: {{usuario}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content class="text-center">
@@ -25,23 +30,46 @@
     </ion-card-content>
   </ion-card>
 
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>Mis trabajos</ion-card-title>
-    <ion-card-subtitle></ion-card-subtitle>
-  </ion-card-header>
+  <ion-card *ngIf="tipoUsuario === 1 || tipoUsuario === 3">
+    <ion-card-header>
+      <ion-card-title>Mis trabajos</ion-card-title>
+      <ion-card-subtitle></ion-card-subtitle>
+    </ion-card-header>
 
-  <ion-card-content>
-    <ion-item class="custom-ion-item">
-      <ion-button class="button-solid" style="width:50%;" (click)="goAddJob()">Agregar Trabajo
-        <ion-icon  slot="end" name="search"></ion-icon>
-      </ion-button>
+    <ion-card-content>
+      <ion-item class="custom-ion-item">
+        <ion-button class="button-solid" style="width:100%;" (click)="goAddJob()">Agregar Trabajo
+          <ion-icon slot="end" name="search"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-          <ion-button class="button-solid" style="width:50%;">Ver Mi Perfil
-        <ion-icon  slot="end" name="person"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-card-content>
-</ion-card>
-
+  <ion-grid fixed class="custom-grid">
+    <ion-row *ngFor="let trabajo of trabajos">
+      <ion-col >
+        <div class="post">
+          <ion-item lines="none">
+            <ion-label>
+              <h2><ion-icon name="person"></ion-icon>{{trabajo.titulo}}</h2>
+            </ion-label>
+            <ion-button *ngIf="tipoUsuario === 1 || tipoUsuario === 3" fill="clear" color="danger" (click)="mensajeEliminar(trabajo.id)">
+              <ion-icon name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <swiper-container pagination="true" style="--swiper-pagination-color: white;">
+            <swiper-slide *ngFor="let foto of getFotosByTrabajo(trabajo.id)">
+              <img [src]="foto.foto" [ngStyle]="{'transform': 'rotate(' + foto.rotacion + 'deg)'}" alt="imagen">
+            </swiper-slide>
+            <div class="swiper-pagination"></div>
+          </swiper-container>
+          <ion-item lines="none">
+            <ion-label>
+              Descripción: {{trabajo.descripcion}}
+            </ion-label>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
