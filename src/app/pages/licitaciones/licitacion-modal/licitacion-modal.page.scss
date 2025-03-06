@@ -1,0 +1,19 @@
+.centrar-boton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.centrar-boton ion-button {
+  --background: #ffa039; /* Color de fondo del botón */
+  --color: #ffffff; /* Color del texto del botón */
+}
+ion-textarea {
+  --background: #ffffff; /* Fondo blanco */
+  --color: #000000; /* Letras negras */
+}
+ion-item {
+  --background: #ffffff; /* Fondo blanco */
+}
+p {
+  color: #ffffff; /* Letras negras */
+}

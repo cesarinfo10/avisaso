@@ -5,6 +5,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
+import { HttpClient } from '@angular/common/http';
 
 const apiUrl = environment.apiUrl;
 @Component({
@@ -29,6 +30,7 @@ export class UsuarioPage implements OnInit {
   telefono: string = '';
   isMobile: boolean = false;
   presentacion: string = '';
+  prefijo: string = '+549'; // Prefijo por defecto
 
   public image: string= apiUrl+'/assets/perfil.png';
 
@@ -40,8 +42,10 @@ export class UsuarioPage implements OnInit {
               private navCtrl: NavController,
               private alertCtrl: AlertController,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private http: HttpClient) {
                 this.consultarUser();
+                this.detectarPais();
                }
 
   ngOnInit() {
@@ -140,11 +144,15 @@ export class UsuarioPage implements OnInit {
 	UPDATE USUARIO POS SESIÓN
 	=============================================*/
   guardarUsuario() {
+    if (!this.validarCelular(this.celular)) {
+      this.mostrarAlertaVarios('Número de celular inválido', 'Por favor, ingrese un número de celular válido.');
+      return;
+    }
     const usuarioDto = {
           tipo_usuario: this.tipo_usuario,
           correo: this.correo,
-          celular: '+549'+this.celular,
-          telefono: '+549'+this.telefono,
+          celular: this.prefijo + this.celular,
+          telefono: this.prefijo + this.telefono,
           direccion: this.direccion,
           latitud: this.latitud,
           longitud: this.longitud,
@@ -207,6 +215,15 @@ export class UsuarioPage implements OnInit {
     this.navCtrl.navigateRoot('/home');
   }
 
+  async mostrarAlertaVarios(header: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
   async mostrarAlerta() {
     const alert = await this.alertCtrl.create({
       header: 'Atención',
@@ -256,9 +273,35 @@ export class UsuarioPage implements OnInit {
 
   // Función para eliminar el prefijo +549
   removePrefix(phoneNumber: string): string {
-    if (phoneNumber.startsWith('+549')) {
-      return phoneNumber.substring(4);
+    if (phoneNumber.startsWith(this.prefijo)) {
+      return phoneNumber.substring(this.prefijo.length);
     }
     return phoneNumber;
   }
+
+    // Función para validar el número de celular
+  validarCelular(celular: string): boolean {
+    const regex = /^[0-9]{9,10}$/; // Asegúrate de que el número tenga 9 o 10 dígitos
+    return regex.test(celular);
+  }
+
+      // Nueva función para detectar el país y ajustar el código de área
+      detectarPais() {
+        this.http.get('https://ipapi.co/json/').subscribe((data: any) => {
+          const countryCode = data.country_code;
+          switch (countryCode) {
+            case 'AR':
+              this.prefijo = '+549';
+              break;
+            case 'CL':
+              this.prefijo = '+569';
+              break;
+            // Agrega más casos según sea necesario
+            default:
+              this.prefijo = '+549'; // Prefijo por defecto
+          }
+        });
+      }
+
+
 }

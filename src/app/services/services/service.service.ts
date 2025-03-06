@@ -11,9 +11,17 @@ const apiUrl = environment.apiUrl;
 export class ServiceService {
 
   constructor(private http: HttpClient) { }
-
+  // ==============================================================
+  // REGISTRO DE LICITACIONES HECHAS
+  // ==============================================================
   selectAllLicitaUser(dni: string): Observable<any> {
     return this.http.get(apiUrl + `servicios/servicios.php?dni_usuario_licita=${dni}&todosServicios`);
+  }
+    // ==============================================================
+  // REGISTRO DE LICITACIONES HECHAS POR USUARIO
+  // ==============================================================
+  selectAllLicitaPorUser(dni: string): Observable<any> {
+    return this.http.get(apiUrl + `servicios/servicios.php?dni=${dni}&todosServiciosPorNom`);
   }
   // ==============================================================
   // REGISTRO DE LICITACIONES DEL USUARIOS
@@ -41,4 +49,19 @@ export class ServiceService {
     return this.http.get(`${apiUrl}servicios/servicios.php?id=${id}&detalleLicitacionesUser`);
   }
 
+  inactivarJOB (datos: any) {
+    const body = JSON.stringify(datos);
+    return new Promise(
+      resolve => {
+        this.http.post(apiUrl + 'servicios/servicios.php?rechazarServicio', body)
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            err => {
+              console.log(err);
+            });
+      }
+    );
+  }
 }

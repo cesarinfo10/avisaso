@@ -22,6 +22,7 @@ export class MisLicitacionesPage implements OnInit {
      if (dni_usuario_licita) {
        this.servicio.selectAllLicitaUser(dni_usuario_licita).subscribe(async data => {
           this.licitaciones = data;
+          console.log(this.licitaciones);
        });
      }
    }

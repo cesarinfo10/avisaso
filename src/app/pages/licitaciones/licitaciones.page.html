@@ -8,9 +8,31 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">licitaciones</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-title>
+     Lista de licitaciones
+    </ion-card-title>
+    <ion-card-content>
+  <ion-list class="custom-ion-list">
+    <ion-item class="custom-ion-item">
+      <ion-grid class="centered-grid">
+        <ion-row>
+          <ion-col class="centered-col"><strong>Trabajo</strong></ion-col>
+          <ion-col class="centered-col"><strong>Ver</strong></ion-col>
+          <ion-col class="centered-col"><strong>Rechazar</strong></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let licta of licitaciones">
+          <ion-col class="centered-col">{{ licta.nomServicio }}</ion-col>
+          <ion-col class="centered-col">
+            <ion-button class="button-solid3" *ngIf="licta.id > 0" (click)="abrirModal(licta)"><ion-icon name="eye-outline"></ion-icon></ion-button>
+          </ion-col>
+          <ion-col class="centered-col">
+            <ion-button class="button-solid3" *ngIf="licta.id > 0" (click)="rechazarLicitacion(licta)"><ion-icon name="close-outline"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-item>
+</ion-list>
+</ion-card-content>
+</ion-card>
 </ion-content>

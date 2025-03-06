@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: LicitacionesPage
+  },
+  {
+    path: 'licitacion-modal',
+    loadChildren: () => import('./licitacion-modal/licitacion-modal.module').then( m => m.LicitacionModalPageModule)
   }
 ];
 

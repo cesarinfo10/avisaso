@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Responder a la Licitación</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ nomServicio }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Necesidad: {{ desNecesidad }}</strong></p>
+      <ion-item>
+        <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe tu respuesta aquí..."></ion-textarea>
+      </ion-item>
+      <div class="centrar-boton">
+        <ion-button (click)="responder()">Responder</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
