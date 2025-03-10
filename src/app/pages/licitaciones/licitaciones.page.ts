@@ -28,9 +28,19 @@ export class LicitacionesPage implements OnInit {
       componentProps: {
         nomServicio: licta.nomServicio,
         desNecesidad: licta.des_necesidad,
-        idLicita: licta.id
+        idLicita: licta.id,
+        dni_usuario_licita : licta.dni_usuario_licita,
+        nombre_usuario_licita : licta.nombre_usuario_licita,
+        responde: licta.responde,
+        parent: this
       }
     });
+    if(licta.visto === 0 || licta.visto === '0' || licta.visto === null)
+    {
+      this.vistoLicitacion(licta.id);
+    }
+
+
     return await modal.present();
   }
   async consultarServivesUser() {
@@ -42,6 +52,30 @@ export class LicitacionesPage implements OnInit {
        });
      }
 
+   }
+
+   async vistoLicitacion(id: string) {
+
+    const datos = {
+      dniVe: localStorage.getItem('dni') || undefined,
+      idLicita: id,
+      visto: 1,
+      responde: 0,
+      aceptado: 0,
+      eliminar: 0
+    };
+    this.servicio.estadosJOB(datos)
+    .then(
+      async data => {
+       // console.log(data);
+        this.consultarServivesUser();
+      }
+    )
+    .catch(
+      error => {
+        console.log(error);
+      }
+    );
    }
 
    async rechazarLicitacion(licta: any) {
@@ -67,7 +101,7 @@ export class LicitacionesPage implements OnInit {
               aceptado: 0,
               eliminar: 1
             };
-            this.servicio.inactivarJOB(datos)
+            this.servicio.estadosJOB(datos)
               .then(
                 async data => {
                   console.log(data);

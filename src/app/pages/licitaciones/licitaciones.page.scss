@@ -112,3 +112,21 @@ ion-card-title {
   display: block;
   margin: 0 auto; /* Centra la imagen horizontalmente */
 }
+
+.row-highlight {
+  background-color: #e8171721; /* Color de fondo */
+  position: relative; /* Necesario para posicionar la etiqueta flotante */
+}
+
+.new-label {
+  position: absolute;
+  top: -15px; /* Ajusta según sea necesario */
+  left: 0;
+  background-color: red;
+  color: white;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 0 0 5px 0;
+  z-index: 1; /* Asegura que la etiqueta esté por encima del contenido */
+}

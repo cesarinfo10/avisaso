@@ -13,12 +13,18 @@
       <ion-card-title>{{ nomServicio }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Necesidad: {{ desNecesidad }}</strong></p>
+      <p><strong>El usuario {{ nombre_usuario_licita }} necesita:</strong></p>
+      <p><strong>{{ desNecesidad }}</strong></p>
+      <br/>
       <ion-item>
-        <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe tu respuesta aquí..."></ion-textarea>
+        <ion-textarea [(ngModel)]="respuesta" placeholder="Escribe tu respuesta aquí..." rows="5" [disabled]="responde === '1'"></ion-textarea>
+      </ion-item>
+      <br/>
+      <ion-item class="custom-ion-item">
+        <ion-input type="text" label="Total $" labelPlacement="floating" placeholder="$ 0" [(ngModel)]="precio" (ionInput)="formatPrecio($event)" [disabled]="responde === '1'"></ion-input>
       </ion-item>
       <div class="centrar-boton">
-        <ion-button (click)="responder()">Responder</ion-button>
+        <ion-button (click)="responder()" [disabled]="responde === '1'">Responder</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

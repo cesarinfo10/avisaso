@@ -48,12 +48,32 @@ export class ServiceService {
   selectOnelicitacionUser(id: string): Observable<any> {
     return this.http.get(`${apiUrl}servicios/servicios.php?id=${id}&detalleLicitacionesUser`);
   }
-
-  inactivarJOB (datos: any) {
+  // ==============================================================
+  // AGREGAR ESTADO Y VISTO DE LA LICITACIÓN
+  // ==============================================================
+  estadosJOB (datos: any) {
     const body = JSON.stringify(datos);
     return new Promise(
       resolve => {
-        this.http.post(apiUrl + 'servicios/servicios.php?rechazarServicio', body)
+        this.http.post(apiUrl + 'servicios/servicios.php?estadosServicio', body)
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            err => {
+              console.log(err);
+            });
+      }
+    );
+  }
+   // ==============================================================
+  // AGREGAR RESPUESTA DEL USUARIO QUE LICITO
+  // ==============================================================
+  respuestaJOB (datos: any) {
+    const body = JSON.stringify(datos);
+    return new Promise(
+      resolve => {
+        this.http.post(apiUrl + 'servicios/servicios.php?respuestaJOB', body)
           .subscribe(
             data => {
               resolve(data);

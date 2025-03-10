@@ -21,8 +21,12 @@
           <ion-col class="centered-col"><strong>Ver</strong></ion-col>
           <ion-col class="centered-col"><strong>Rechazar</strong></ion-col>
         </ion-row>
-        <ion-row *ngFor="let licta of licitaciones">
-          <ion-col class="centered-col">{{ licta.nomServicio }}</ion-col>
+        <br/>
+        <ion-row *ngFor="let licta of licitaciones" [ngClass]="{'row-highlight': licta.visto !== '1'}">
+          <ion-col class="centered-col">
+            <div *ngIf="licta.visto !== '1'" class="new-label">Nuevo</div>
+            {{ licta.nomServicio }}
+          </ion-col>
           <ion-col class="centered-col">
             <ion-button class="button-solid3" *ngIf="licta.id > 0" (click)="abrirModal(licta)"><ion-icon name="eye-outline"></ion-icon></ion-button>
           </ion-col>
